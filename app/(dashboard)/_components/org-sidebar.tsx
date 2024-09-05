@@ -28,7 +28,7 @@ export const OrgSidebar = () => {
             width={60}
             height={60}
           />
-          <span className="text-2xl font-bold text-white">
+          <span className="text-2xl font-bold text-black">
             Scratch
           </span>
         </div>
