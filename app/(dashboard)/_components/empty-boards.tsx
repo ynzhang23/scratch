@@ -3,18 +3,17 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useOrganization } from "@clerk/nextjs";
-import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
+import { useApiMutation } from "@/hooks/use-api-mutation";
 
 export const EmptyBoards = () => {
-  const create = useMutation(api.board.create);
+  const { mutate, pending } = useApiMutation(api.board.create);
   const { organization } = useOrganization();
 
   const onClick = () => {
     // If no organization exists return
     if (!organization) return;
-
-    create({
+    mutate({
       orgId: organization.id,
       title: "Untitled",
     })
@@ -35,7 +34,7 @@ export const EmptyBoards = () => {
         Try creating a new board for your organization.
       </p>
       <div className="mt-6">
-        <Button onClick={onClick} size="lg">
+        <Button disabled={pending} onClick={onClick} size="lg">
           Create Board
         </Button>
       </div>
