@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useOrganization } from "@clerk/nextjs";
 import { api } from "@/convex/_generated/api";
 import { useApiMutation } from "@/hooks/use-api-mutation";
+import { toast } from "sonner";
 
 export const EmptyBoards = () => {
   const { mutate, pending } = useApiMutation(api.board.create);
@@ -17,6 +18,11 @@ export const EmptyBoards = () => {
       orgId: organization.id,
       title: "Untitled",
     })
+      .then((id) => {
+        toast.success("Board created");
+        // TODO: Redirect to the newly created board
+      })
+      .catch(() => toast.error("Failed to create board"));
   }
 
   return (
