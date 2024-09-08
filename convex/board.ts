@@ -15,6 +15,23 @@ const images = [
   "/placeholders/10.svg",
 ]
 
+export const remove = mutation ({
+  args: {
+    id: v.id("boards")
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) {
+      throw new Error('Unauthorized');
+    }
+
+    // TODO: Delete favorite relation as well
+
+    await ctx.db.delete(args.id);
+  }
+})
+
 export const create = mutation ({
   args: {
     orgId: v.string(),
