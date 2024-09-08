@@ -8,6 +8,8 @@ import { formatDistanceToNow } from "date-fns";
 import { Overlay } from "./overlay";
 import { Footer } from "./footer";
 
+import { Skeleton } from "@/components/ui/skeleton";
+
 interface BoardCardProps {
   id: string;
   title: string;
@@ -35,13 +37,13 @@ export const BoardCard = ({
 
   return (
     <Link href={`/board/${id}`}>
-      <div className="group aspect-[100/127] border rounded-lg flex-col justify-between overflow-hidden">
-        <div className="relative flex-1 bg-slate-100">
+      <div className="group aspect-[100/127] border rounded-lg flex flex-col justify-between overflow-hidden">
+        <div className="relative flex-1 bg-slate-50">
           <Image
             src={imageUrl}
             alt={title}
             fill
-            className="object-fit"
+            className="object-center"
           />
           <Overlay />
         </div>
@@ -56,4 +58,12 @@ export const BoardCard = ({
       </div>
     </Link>
   );
+}
+
+BoardCard.Skeleton = function BoardCardSkeleton() {
+  return (
+    <div className="aspect-[100/127] rounded-lg overflow-hidden">
+      <Skeleton className="h-full w-full"/>
+    </div>
+  )
 }
