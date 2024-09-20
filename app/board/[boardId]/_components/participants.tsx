@@ -1,6 +1,6 @@
 "use client";
 
-import { UserAvatar } from "@/app/(dashboard)/_components/user-avatar"; 
+import { UserAvatar } from "./user-avatar"; 
 import { connectionIdToColor } from "@/lib/utils";
 import { useOthers, useSelf } from "@/liveblocks.config";
 
