@@ -1,7 +1,6 @@
 import { Circle, MousePointer2, Pen, Redo2, Square, StickyNote, TypeIcon, Undo2 } from "lucide-react";
 import { ToolButton } from "./tool-button";
 import { CanvasMode, CanvasState, LayerType } from "@/types/canvas";
-import { useRedo, useUndo } from "@liveblocks/react";
 
 interface ToolbarProps {
   canvasState: CanvasState;
@@ -101,13 +100,13 @@ export const Toolbar = ({
         <ToolButton
           label="Undo"
           icon={Undo2}
-          onClick={useUndo}
+          onClick={undo}
           isDisabled={!canUndo}
         />
         <ToolButton
           label="Redo"
           icon={Redo2}
-          onClick={useRedo}
+          onClick={redo}
           isDisabled={!canRedo}
         />
       </div>
