@@ -42,9 +42,12 @@ export const Canvas = ({
 }:CanvasProps) => {
   const layerIds = useStorage((root) => root.layerIds);
 
+  // State to manage the canvas state
   const [canvasState, setCanvasState] = useState<CanvasState>({
     mode: CanvasMode.None,
   });
+
+  // State to manage the last used color
   const [lastUsedColor, setLastUsedColor] = useState<Color>({
     r: 255,
     g: 255,
@@ -103,10 +106,10 @@ export const Canvas = ({
     // Reuse the pointer event to get the canvas point
     const point = pointerEventToCanvasPoint(e, camera);
 
-    console.log({
-      point,
-      canvasState,
-    })
+    // console.log({
+    //   point,
+    //   canvasState,
+    // })
     
     // If the canvas mode is Inserting, insert a new layer
     if (canvasState.mode === CanvasMode.Inserting) {
@@ -139,6 +142,37 @@ export const Canvas = ({
       corner
     });
   }, [history]);
+
+  const translateSelectedLayer = useMutation((
+    { storage, self },
+    point: Point,
+  ) => {
+    if (canvasState.mode !== CanvasMode.Translating) {
+      return;
+    }
+
+    const offset = {
+      x: point.x - canvasState.current.x,
+      y: point.y - canvasState.current.y,
+    };
+
+    const liveLayers = storage.get("layers");
+
+    for (const id of self.presence.selection) {
+      const layer = liveLayers.get(id);
+      if (layer) {
+        layer.update({
+          x: layer.get("x") + offset.x,
+          y: layer.get("y") + offset.y,
+        });
+      }
+    }
+
+    setCanvasState({
+      mode: CanvasMode.Translating,
+      current: point,
+    });
+  }, [canvasState]);
 
   const resizeSelectedLayer = useMutation((
     { storage, self },
@@ -182,7 +216,7 @@ export const Canvas = ({
     const current = pointerEventToCanvasPoint(e, camera);
 
     if (canvasState.mode === CanvasMode.Translating) {
-      console.log("TRANSLATING");
+      translateSelectedLayer(current);
     }
     else if (canvasState.mode === CanvasMode.Resizing) {
       resizeSelectedLayer(current);
@@ -192,6 +226,7 @@ export const Canvas = ({
   }, [
     canvasState, 
     resizeSelectedLayer, 
+    translateSelectedLayer,
     camera
   ]);
 
@@ -220,6 +255,7 @@ export const Canvas = ({
     if(!self.presence.selection.includes(layerId)) {
       setMyPresence({ selection: [layerId] }, { addToHistory: true });
     }
+    
     setCanvasState({ mode: CanvasMode.Translating, current: point });
   }, [
     setCanvasState,
