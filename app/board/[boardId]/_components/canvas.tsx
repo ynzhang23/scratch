@@ -29,6 +29,7 @@ import { connectionIdToColor, pointerEventToCanvasPoint, resizeBounds } from "@/
 import { LiveObject } from "@liveblocks/client";
 import { LayerPreview } from "./layer-preview";
 import { SelectionBox } from "./selection-box";
+import { SelectionTools } from "./selection-tools";
 
 const MAX_LAYERS = 100; // Maximum number of layers
 
@@ -99,6 +100,24 @@ export const Canvas = ({
     setCanvasState({ mode: CanvasMode.None });
   }, [lastUsedColor]);
 
+  const onPointerDown = useCallback((
+    e: React.PointerEvent
+  ) => {
+    const point = pointerEventToCanvasPoint(e, camera);
+
+    if (canvasState.mode === CanvasMode.Inserting) {
+      return;
+    }
+
+    // TODO: Add case for drawing
+
+    setCanvasState({ origin: point, mode: CanvasMode.Pressing });
+  }, [
+    camera,
+    canvasState.mode,
+    setCanvasState
+  ]);
+
   const onPointerUp = useMutation((
     {},
     e
@@ -106,13 +125,15 @@ export const Canvas = ({
     // Reuse the pointer event to get the canvas point
     const point = pointerEventToCanvasPoint(e, camera);
 
-    // console.log({
-    //   point,
-    //   canvasState,
-    // })
-    
-    // If the canvas mode is Inserting, insert a new layer
-    if (canvasState.mode === CanvasMode.Inserting) {
+    if (
+      canvasState.mode === CanvasMode.None ||
+      canvasState.mode === CanvasMode.Pressing
+    ) {
+      unselectLayer();
+      setCanvasState({
+        mode: CanvasMode.None
+      });
+    } else if (canvasState.mode === CanvasMode.Inserting) {
       insertLayer(canvasState.layerType, point);
     } else {
       setCanvasState({ mode: CanvasMode.None });
@@ -173,6 +194,12 @@ export const Canvas = ({
       current: point,
     });
   }, [canvasState]);
+
+  const unselectLayer = useMutation(({ self, setMyPresence }) => {
+    if (self.presence.selection.length > 0) {
+      setMyPresence({ selection: [] }, { addToHistory: true });
+    }
+  }, []);
 
   const resizeSelectedLayer = useMutation((
     { storage, self },
@@ -293,12 +320,17 @@ export const Canvas = ({
         redo={history.redo}
         undo={history.undo}
       />
+      <SelectionTools 
+        camera={camera}
+        setLastUsedColor={setLastUsedColor}
+      />
       <svg
         className="h-[100vh] w-[100vw]"
         onWheel={onWheel}
         onPointerMove={onPointerMove}
         onPointerLeave={onPointerLeave}
         onPointerUp={onPointerUp}
+        onPointerDown={onPointerDown}
       >
         <g
           style={{
