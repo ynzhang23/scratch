@@ -1,59 +1,44 @@
 "use client";
-
 import Link from "next/link";
 import Image from "next/image";
 import { Poppins } from "next/font/google";
+import { cn } from "@/lib/utils";
 import { OrganizationSwitcher } from "@clerk/nextjs";
-import { LayoutDashboard } from "lucide-react";
-import { Star } from "lucide-react";
+import { LayoutDashboard, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useSearchParams } from "next/navigation";
 
 const font = Poppins({
   subsets: ["latin"],
-  weight: ["600"]
-})
+  weight: ["600"],
+});
 
-export const OrgSidebar = () => {
+export function OrgSidebar() {
   const searchParams = useSearchParams();
   const favorites = searchParams.get("favorites");
 
   return (
-    <div className="hidden lg:flex flex-col space-y-6 w-[200px] pl-5 pr-5 pt-5">
+    <div className="hidden lg:flex flex-col space-y-6 w-[206px] pl-5 pt-5">
       <Link href="/">
         <div className="flex items-center gap-x-2">
-          <Image
-            src="/logo.svg"
-            alt="Logo"
-            width={60}
-            height={60}
-          />
-          <span className="text-2xl font-bold text-black">
-            Scratch
-          </span>
+          <Image src="/logo.svg" className="translate-y-1" alt="Logo" height={60} width={60} />
+          <span className={cn("font-semibold text-2xl", font.className)}>SCRATCH</span>
         </div>
       </Link>
       <OrganizationSwitcher
-        hidePersonal={true}
+        hidePersonal
         appearance={{
           elements: {
-            rootBox: {
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              width: "100%",
-            },
-          organizationSwitcherTrigger: {
-            padding: "6px",
-            width: "100%",
-            borderRadius: "8px",
-            border: "1px solid #E5E7EB",
-            justifyContent: "space-between",
-            backgroundColor: "#F9FAFB"
-          }
-          }
-        }
-        }
+            organizationSwitcherTrigger: 'flex items-center space-x-2 bg-white border border-gray-300 rounded-md py-2 px-4 w-full justify-between',
+            organizationSwitcherText: 'text-gray-800',
+            organizationSwitcherIcon: 'h-5 w-5 text-gray-500',
+            organizationSwitcherPopoverCard: 'bg-white border border-gray-200 rounded-md shadow-lg',
+            organizationSwitcherPopoverHeader: 'px-4 py-3 bg-gray-100 text-sm font-medium text-gray-600 uppercase tracking-wider',
+            organizationSwitcherPopoverList: 'divide-y divide-gray-200',
+            organizationSwitcherPopoverItem: 'flex items-center justify-between px-4 py-2 text-sm hover:bg-gray-50',
+            organizationSwitcherPopoverItemText: 'text-gray-800',
+          },
+        }}
       />
       <div className="space-y-1 w-full">
         <Button
@@ -63,7 +48,7 @@ export const OrgSidebar = () => {
           className="font-normal justify-start px-2 w-full"
         >
           <Link href="/">
-            <LayoutDashboard className="h-4 w-4 mr-2"/>
+            <LayoutDashboard className="h-4 w-4 mr-2" />
             Team Boards
           </Link>
         </Button>
@@ -73,15 +58,19 @@ export const OrgSidebar = () => {
           size="lg"
           className="font-normal justify-start px-2 w-full"
         >
-          <Link href={{
-            pathname: "/",
-            query: { favorites: true }
-          }}>
-            <Star className="h-4 w-4 mr-2"/>
+          <Link
+            href={{
+              pathname: "/",
+              query: {
+                favorites: "true",
+              },
+            }}
+          >
+            <Star className="h-4 w-4 mr-2" />
             Favorite Boards
           </Link>
         </Button>
       </div>
     </div>
-  )
+  );
 }

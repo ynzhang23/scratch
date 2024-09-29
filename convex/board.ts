@@ -11,8 +11,6 @@ const images = [
   "/placeholders/6.svg",
   "/placeholders/7.svg",
   "/placeholders/8.svg",
-  "/placeholders/9.svg",
-  "/placeholders/10.svg",
 ]
 
 export const remove = mutation ({

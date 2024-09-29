@@ -1,10 +1,10 @@
-import { Kalam } from "next/font/google";
+import { Overpass_Mono } from "next/font/google";
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
 import { NoteLayer } from "@/types/canvas";
 import { cn, colorToCss, getContrastingTextColor } from "@/lib/utils";
 import { useMutation } from "@/liveblocks.config";
 
-const font = Kalam({
+const font = Overpass_Mono({
   subsets: ["latin"],
   weight: ["400"],
 });

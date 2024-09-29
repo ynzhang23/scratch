@@ -32,8 +32,8 @@ export const EmptyBoards = () => {
       <Image 
         src="/no-boards.svg"
         alt="Empty"
-        height={400}
-        width={400}
+        height={200}
+        width={200}
       />
       <h2 className="text-2xl font-semibold mt-6">
         No boards found

@@ -47,7 +47,7 @@ export const Info = ({
   }
 
   return (
-    <div className="absolute top-2 left-2 bg-white rounded-md px-1.5 h-12 flex items-center shadow-md">
+    <div className="absolute top-4 left-2 bg-white rounded-md px-3 py-5 h-12 flex items-center shadow-md">
       <Hint label="Go to boards" side="bottom" sideOffset={10}>
         <Button asChild className="px-2" variant="board">
           <Link href="/">
@@ -56,6 +56,7 @@ export const Info = ({
                 alt="Board Logo"
                 width={40}
                 height={40}
+                className="translate-y-1"
               />
             <span className={
               cn("font-semibold text-xl text-black", font.className)

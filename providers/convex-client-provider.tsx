@@ -1,6 +1,7 @@
 "use client";
 
 import { ClerkProvider, useAuth } from "@clerk/nextjs";
+import { neobrutalism } from "@clerk/themes"
 import { ConvexProviderWithClerk } from "convex/react-clerk";
 import {
   AuthLoading,
@@ -21,7 +22,9 @@ export const ConvexClientProvider = ({
   children,
 }: ConvexClientProviderProps) => {
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      appearance={{baseTheme: neobrutalism}}
+    >
       <ConvexProviderWithClerk useAuth={useAuth} client={convex}>
         <Authenticated>
           {children}

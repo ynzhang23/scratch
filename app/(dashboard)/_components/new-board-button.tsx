@@ -38,13 +38,13 @@ export const NewBoardButton = ({
       disabled={pending || disabled}
       onClick={onClick}
       className={cn(
-        "col-span-1 aspect-[100/127] bg-blue-600 rounded-lg hover:bg-blue-800 flex flex-col items-center justify-center py-6",
-        (disabled || pending ) && "cursor-not-allowed opacity-75 hover:bg-blue-600"
+        "col-span-1 aspect-[100/127] bg-slate-100 rounded-lg hover:bg-slate-300 flex flex-col items-center justify-center py-6",
+        (disabled || pending ) && "cursor-not-allowed opacity-75 hover:bg-slate-400"
       )}
     >
       <div />
-      <Plus className="h-12 w-12 text-white stroke-1" />
-      <div className="text-white mt-1 text-sm">
+      <Plus className="h-12 w-12 text-black stroke-1" />
+      <div className="text-black mt-1 text-sm">
         New board
       </div>
     </button>
