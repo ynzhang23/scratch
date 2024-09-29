@@ -61,7 +61,7 @@ export const Info = ({
             <span className={
               cn("font-semibold text-xl text-black", font.className)
             }>
-              Scratch
+              Scratch!
             </span>
           </Link>
         </Button>

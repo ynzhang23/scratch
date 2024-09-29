@@ -16,7 +16,7 @@ export function List() {
     <ul className="space-y-4">
       {userMemberships.data?.map((membership) => {
         return (
-          <div className="bg-white rounded-sm">
+          <div key={membership.organization.id} className="bg-white rounded-sm">
             <Item
               id={membership.organization.id}
               key={membership.organization.id}

@@ -18,7 +18,7 @@ export const EmptyOrg = () => {
         width={400}
       />
       <h2 className='text-2xl font-semibold mt-6'>
-        Welcome to Scratch
+        Welcome to Scratch!
       </h2>
       <p className='text-muted-foreground text-sm mt-2'>
         Create your first organization to get started
