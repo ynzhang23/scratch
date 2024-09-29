@@ -138,7 +138,7 @@ export const Canvas = ({
 
     liveLayerIds.push(id);
 
-    setMyPresence({ pencilDraft: null, selection: [id] }, { addToHistory: true });
+    setMyPresence({ pencilDraft: null }, { addToHistory: true });
     setCanvasState({ mode: CanvasMode.Pencil });
   }, [lastUsedColor]);
 
