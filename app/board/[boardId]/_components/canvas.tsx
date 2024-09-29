@@ -446,9 +446,9 @@ export const Canvas = ({
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
       switch (e.key) {
-        case "Delete": {
-          deleteLayers();
-        }
+        // case "Delete": {
+        //   deleteLayers();
+        // }
         case "z": {
           if (e.ctrlKey || e.metaKey) {
             if (e.shiftKey) {
