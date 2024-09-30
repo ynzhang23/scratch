@@ -1,7 +1,7 @@
 # ✨ Scratch! - Real-Time Collaborative Space
 ![Intuitive Tools](img/tools.gif)
 
-Welcome to [Scratch!](scratch.social), a delightful Miro-inspired app that invites you to unleash your creativity and collaborate with others in real-time. Built with modern web technologies, Scratch! provides a cozy and intuitive space for brainstorming, planning, and bringing ideas to life.
+Welcome to [Scratch!](https://scratch.social), a delightful Miro-inspired app that invites you to unleash your creativity and collaborate with others in real-time. Built with modern web technologies, Scratch! provides a cozy and intuitive space for brainstorming, planning, and bringing ideas to life.
 
 ## 🛠️ Tech Stack
 ### Frontend
